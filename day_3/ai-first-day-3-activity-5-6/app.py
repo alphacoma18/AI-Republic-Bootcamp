@@ -38,7 +38,7 @@ custom_css = """
 <style>
     /* Global Styles */
     :root {
-        --primary-color: #ff006e;
+        --primary-color: #262730;
         --secondary-color: #03a9f4;
         --background-color: #1b1b1b;
         --text-color: #ffffff;
@@ -67,7 +67,6 @@ custom_css = """
 
     /* Menu Styles */
     .nav-link-selected {
-        background-color: var(--secondary-color);
         color: var(--background-color);
     }
 
@@ -252,6 +251,8 @@ As an AI music mixer, you operate in a creative environment where artistic expre
         Song 2: "Stairway to Heaven" by Led Zeppelin
     </InputLyrics>
     <ExpectedOutput>
+        Song Title: "Whispers of Yesterday"
+
         Verse 1:
         In yesterday's misty mountains high
         Where shadows play, I hear her sigh
@@ -311,7 +312,12 @@ As an AI music mixer, you operate in a creative environment where artistic expre
 
         # Display the mixed song
         st.success("Your mixed masterpiece is ready!")
-        st.markdown(response.choices[0].message.content)
+        # parse in a div with styles
+        st.markdown(f"""
+        <div style='background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>
+            <pre>{response.choices[0].message.content}</pre>
+        </div>
+        """, unsafe_allow_html=True)
 
         # Add download button for the mixed song
         st.download_button(
