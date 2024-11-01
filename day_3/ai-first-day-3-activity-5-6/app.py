@@ -139,7 +139,7 @@ with st.sidebar:
     else:
         try:
             openai.ChatCompletion.create(
-                model="gpt-4-mini",
+                model="gpt-4o-mini",
                 messages=[{"role": "user", "content": "test"}],
                 max_tokens=5
             )
@@ -302,7 +302,7 @@ As an AI music mixer, you operate in a creative environment where artistic expre
 
         # Generate mixed song using AI model
         response = openai.ChatCompletion.create(
-            model="gpt-4-mini",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": f"Combine these lyrics into a cohesive mixed song:\n\n{combined_lyrics}"}
