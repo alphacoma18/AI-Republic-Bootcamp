@@ -103,8 +103,7 @@ custom_css = """
 
     /* Download Button Styles */
     .stDownloadButton > button {
-        background-color: var(--secondary-color);
-        color: var(--background-color);
+        color: var(--accent-color);
         padding: 0.5rem 1rem;
         font-size: 1rem;
         border: none;
@@ -252,6 +251,7 @@ As an AI music mixer, you operate in a creative environment where artistic expre
     </InputLyrics>
     <ExpectedOutput>
         Song Title: "Whispers of Yesterday"
+
 
         Verse 1:
         In yesterday's misty mountains high
