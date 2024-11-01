@@ -27,20 +27,42 @@ def set_background(image_path):
         background-attachment: fixed;
         backdrop-filter: brightness(0.7) blur(5px);
     }}
+    /* Updated chat message styling */
     .stChatMessage {{
-        max-width: 80%;
-        margin: 0 auto;
+        width: 80%;
+        margin: 1rem auto !important;
+        padding: 1rem !important;
+        border-radius: 15px !important;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        border-radius: 15px;
     }}
     .stChatMessage div[data-testid="stMarkdownContainer"] {{
         color: #ffffff;
     }}
+    /* Align user messages to the right */
     .stChatMessage.user-message {{
-        background-color: rgba(30, 30, 40, 0.7) !important;
+        background-color: rgba(30, 30, 40, 0.85) !important;
+        margin-left: 20% !important;
     }}
+    /* Align assistant messages to the left */
     .stChatMessage.assistant-message {{
-        background-color: rgba(50, 50, 70, 0.7) !important;
+        background-color: rgba(50, 50, 70, 0.85) !important;
+        margin-right: 20% !important;
+    }}
+    /* Chat input container styling */
+    .stChatInputContainer {{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        background-color: rgba(27, 27, 27, 0.9);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }}
+    /* Chat message container */
+    [data-testid="stChatMessageContainer"] {{
+        padding: 0.5rem;
+        margin-bottom: 60px;  /* Space for fixed chat input */
     }}
     </style>
     """
@@ -69,11 +91,40 @@ def load_custom_css():
         background-color: var(--accent-color);
         color: var(--primary-color);
         border: none;
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
         transition: all 0.3s ease;
     }
     .stButton>button:hover {
         background-color: var(--secondary-color);
         transform: scale(1.05);
+    }
+    /* Chat input styling */
+    .stTextInput input {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        color: white;
+        padding: 0.75rem;
+    }
+    .stTextInput input:focus {
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 2px rgba(222, 201, 96, 0.2);
+    }
+    /* Improve scrollbar appearance */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+    }
+    ::-webkit-scrollbar-thumb {
+        background: rgba(222, 201, 96, 0.5);
+        border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgba(222, 201, 96, 0.7);
     }
     </style>
     """
