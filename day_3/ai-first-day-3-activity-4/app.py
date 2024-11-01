@@ -16,65 +16,132 @@ import streamlit as st
 import warnings
 from streamlit_option_menu import option_menu
 from streamlit_extras.mention import mention
-from newspaper import Article
+import requests
+from bs4 import BeautifulSoup
 
 warnings.filterwarnings("ignore")
 
-warnings.filterwarnings("ignore")
 
-st.set_page_config(page_title="News Summarizer Tool", page_icon=":robot_face:", layout="wide")
+st.set_page_config(page_title="News Summarizer Tool", page_icon="", layout="wide")
 
-with st.sidebar:
-    openai.api_key = st.text_input("OpenAI API Key", type="password")
-    if not (openai.api_key.startswith("sk-") and len(openai.api_key) == 164):
-        st.warning("Please enter your OpenAI API key to continue.", icon="⚠️")
+with st.sidebar :
+    st.image('day_3/ai-first-day-3-activity-4/images/White_AI Republic.png')
+    openai.api_key = st.text_input('Enter OpenAI API token:', type='password')
+    if not (openai.api_key.startswith('sk-') and len(openai.api_key)==164):
+        st.warning('Please enter your OpenAI API token!', icon='⚠️')
     else:
-        st.success("API key is valid.", icon="✅")
+        st.success('Proceed to entering your prompt message!', icon='👉')
+    with st.container() :
+        l, m, r = st.columns((1, 3, 1))
+        with l : st.empty()
+        with m : st.empty()
+        with r : st.empty()
 
-with st.container() :
-    l, m, r = st.columns((1,3,1))
-    with l: st.empty()
-    with m: st.empty()
-    with r: st.empty()
+    options = option_menu(
+        "Dashboard",
+        ["Home", "About Me", "Model"],
+        icons = ['book', 'globe', 'tools'],
+        menu_icon = "book",
+        default_index = 0,
+        styles = {
+            "icon" : {"color" : "#dec960", "font-size" : "20px"},
+            "nav-link" : {"font-size" : "17px", "text-align" : "left", "margin" : "5px", "--hover-color" : "#262730"},
+            "nav-link-selected" : {"background-color" : "#262730"}
+        })
 
-option = option_menu(
-    "Dashboard",
-    ["Home", "About Us", "Model"],
-    icons=["book", "globe", "tools"],
-    menu_icon="book",
-    default_index=0,
-    styles={
-        "icon": {"color": "orange", "font-size": "25px"},
-        "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-        "nav-link-selected" : {"background-color":"#262730"}
-
-    }
-)
 
 if 'messages' not in st.session_state:
-    st.session_state.message = []
+    st.session_state.messages = []
 
 if 'chat_session' not in st.session_state:
-    st.session_state.chat_session = None #placeholder
+    st.session_state.chat_session = None  # Placeholder for your chat session initialization
 
-elif option == "Home" :
-    st.title("Title")
-    st.write("Write Text")
+if options == "Home" :
+    st.title('Mijikai News - Summarizer Tool')
+    st.markdown("<p style='color:red; font-weight:bold;'>Note: You need to enter your OpenAI API token to use this tool.</p>", unsafe_allow_html=True)
 
-elif option == "About Us" :
-    st.title("About Us")
 
-elif option == "Model" :
-    st.title("News Summarizer Tool")
-    col1, col2, col3 = st.columns([1,2,1])
+    # Key features
+    st.write("""
+    <div style="text-align: left;">
+    <h2>Key Features</h2>
+    <ul>
+        <li><b>Comprehensive Summaries</b>: Get a snapshot of any article in seconds, including headlines, key points, and implications.</li>
+        <li><b>Multi-domain Coverage</b>: From politics and business to science and global events, we cover a wide range of topics.</li>
+        <li><b>Customizable Output</b>: Tailor the summary length and format to suit your needs.</li>
+    </ul>
+    </div>
+    """, unsafe_allow_html=True)
 
+    # How it works
+    st.write("""
+    <div style="text-align: left;">
+    <h2>How It Works</h2>
+    <ol>
+        <li><b>Article Analysis:</b> Our AI scans the article, identifying key elements like events, people, and data points.</li>
+        <li><b>Information Extraction:</b> We extract crucial information, focusing on factual content over opinion pieces.</li>
+        <li><b>Structured Summary:</b> The AI organizes extracted information into a clear, easy-to-understand format.</li>
+        <li><b>Objective Presentation:</b> Receive unbiased summaries that adhere to strict journalistic standards.</li>
+    </ol>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Benefits
+    st.write("""
+    <div style="text-align: left;">
+    <h2>Benefits</h2>
+    <ul>
+        <li><b>Time-Saving:</b> Get the gist of articles instantly, saving hours of reading time.</li>
+        <li><b>Improved Comprehension:</b> Understand complex topics quickly and easily.</li>
+        <li><b>Stay Updated:</b> Keep pace with current events across various domains.</li>
+        <li><b>Research Aid:</b> Ideal for students, professionals, and anyone needing quick insights.</li>
+    </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Ideal users
+    st.write("""
+    <div style="text-align: left;">
+    <h2>Ideal Users</h2>
+    <ul>
+        <li>Busy professionals seeking rapid news updates</li>
+        <li>Students looking for concise summaries of academic articles</li>
+        <li>Researchers requiring quick overviews of complex topics</li>
+        <li>Anyone interested in staying informed about current events without getting bogged down in lengthy articles</li>
+    </ul>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Call to action
+    st.write("""
+    <div style="text-align: center;">
+    <h3>Start Summarizing Now!</h3>
+    Please enter your OpenAI API token in the sidebar to begin using the tool.
+    </div>
+    """, unsafe_allow_html=True)
+
+elif options == "Model" :
+    st.title('News Summarizer Tool')
+    col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        News_Article = st.text_input("News Article", placeholder="Input article link here (https://www.etc-article.com)")
+        News_Article = st.text_input("News Article URL", placeholder="Enter article URL: ")
         submit_button = st.button("Generate Summary")
 
     if submit_button:
         with st.spinner("Generating Summary"):
-            system_prompt = """
+            try:
+                # Fetch the article content
+                response = requests.get(News_Article)
+                soup = BeautifulSoup(response.content, 'html.parser')
+
+                # Extract text from paragraphs
+                paragraphs = soup.find_all('p')
+                article_text = ' '.join([p.get_text() for p in paragraphs])
+
+                # OpenAI-based summarization
+                system_prompt = """
 <Role>
 You are a highly skilled AI News Analyst, trained to extract and convey crucial information from various news sources with precision and speed. Your expertise lies in distilling complex articles into concise, accurate summaries that capture the essence of the original content.
 </Role>
@@ -142,18 +209,17 @@ Impact: This breakthrough has the potential to revolutionize treatment options f
 ```
 
 By following these guidelines and examples, you will provide high-quality summaries that effectively capture the essence of news articles while maintaining accuracy and objectivity.
-                """
+"""
+                user_message = f"Please summarize the following news article: {article_text}"
+                struct = [{'role': 'system', 'content': system_prompt}]
+                struct.append({"role": "user", "content": user_message})
+                chat = openai.ChatCompletion.create(model="gpt-4-mini", messages=struct)
+                summary = chat.choices[0].message.content
+                struct.append({"role": "assistant", "content": summary})
 
-            url = ""
-            article = Article(News_Article)
-            article.download()
-            article.parse()
-            user_message = article.text
-            struct = [{"role": "user", "content": system_prompt}]
-            struct.append({"role":"user","content": user_message})
-            chat = openai.ChatCompletion.create(model="gpt-4o-mini", messages = struct)
-            response = chat.choices[0].message.content
-            struct.append({"role":"assistance","content":response})
-            st.success("Here's what I think...")
-            st.subheader("Summary : ")
-            st.write(response)
+                st.success("Summary generated successfully!")
+
+                st.subheader("Article Summary:")
+                st.write(summary)
+            except Exception as e:
+                st.error(f"An error occurred: {str(e)}")
