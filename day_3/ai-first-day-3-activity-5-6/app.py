@@ -19,34 +19,49 @@ def set_background(image_path):
 
     background_style = f"""
     <style>
-    .stApp {{
+    /* Overlay container for background dimming */
+    .stApp::before {{
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         background-image: url("data:image/jpg;base64,{image_data}");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        background-attachment: fixed;
-        backdrop-filter: brightness(0.7) blur(5px);
+        filter: brightness(0.3) blur(5px);
+        z-index: -1;
     }}
-    /* Updated chat message styling */
+    .stApp {{
+        background: rgba(0, 0, 0, 0.7);
+    }}
+    /* Enhanced chat message styling */
     .stChatMessage {{
         width: 80%;
         margin: 1rem auto !important;
-        padding: 1rem !important;
-        border-radius: 15px !important;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        padding: 1.2rem !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }}
     .stChatMessage div[data-testid="stMarkdownContainer"] {{
         color: #ffffff;
+        font-size: 1.1rem;
+        line-height: 1.5;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
     }}
-    /* Align user messages to the right */
+    /* User message styling */
     .stChatMessage.user-message {{
-        background-color: rgba(30, 30, 40, 0.85) !important;
+        background-color: rgba(44, 44, 60, 0.95) !important;
         margin-left: 20% !important;
+        border-left: 4px solid #dec960;
     }}
-    /* Align assistant messages to the left */
+    /* Assistant message styling */
     .stChatMessage.assistant-message {{
-        background-color: rgba(50, 50, 70, 0.85) !important;
+        background-color: rgba(66, 66, 99, 0.95) !important;
         margin-right: 20% !important;
+        border-left: 4px solid #03a9f4;
     }}
     /* Chat input container styling */
     .stChatInputContainer {{
@@ -54,15 +69,16 @@ def set_background(image_path):
         bottom: 0;
         left: 0;
         right: 0;
-        padding: 1rem;
-        background-color: rgba(27, 27, 27, 0.9);
+        padding: 1.5rem;
+        background-color: rgba(20, 20, 30, 0.95);
         backdrop-filter: blur(10px);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 2px solid rgba(222, 201, 96, 0.2);
+        z-index: 1000;
     }}
-    /* Chat message container */
+    /* Chat container spacing */
     [data-testid="stChatMessageContainer"] {{
-        padding: 0.5rem;
-        margin-bottom: 60px;  /* Space for fixed chat input */
+        padding: 1rem;
+        margin-bottom: 80px;
     }}
     </style>
     """
@@ -83,41 +99,54 @@ def load_custom_css():
         font-family: 'Inter', sans-serif;
         color: var(--text-color);
     }
+    /* Enhanced sidebar styling */
     .stSidebar {
-        background-color: rgba(27, 27, 27, 0.8);
+        background-color: rgba(20, 20, 30, 0.95) !important;
         backdrop-filter: blur(10px);
     }
+    .stSidebar .stMarkdown {
+        color: #ffffff;
+    }
+    /* Button styling */
     .stButton>button {
         background-color: var(--accent-color);
         color: var(--primary-color);
         border: none;
         border-radius: 8px;
-        padding: 0.5rem 1rem;
+        padding: 0.75rem 1.25rem;
+        font-weight: 600;
         transition: all 0.3s ease;
     }
     .stButton>button:hover {
         background-color: var(--secondary-color);
         transform: scale(1.05);
     }
-    /* Chat input styling */
+    /* Enhanced input styling */
     .stTextInput input {
         background-color: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.2);
         border-radius: 8px;
         color: white;
-        padding: 0.75rem;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
     }
     .stTextInput input:focus {
         border-color: var(--accent-color);
         box-shadow: 0 0 0 2px rgba(222, 201, 96, 0.2);
+        background-color: rgba(255, 255, 255, 0.15);
     }
-    /* Improve scrollbar appearance */
+    /* Title styling */
+    h1 {
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        letter-spacing: 1px;
+    }
+    /* Scrollbar styling */
     ::-webkit-scrollbar {
         width: 8px;
         height: 8px;
     }
     ::-webkit-scrollbar-track {
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.2);
     }
     ::-webkit-scrollbar-thumb {
         background: rgba(222, 201, 96, 0.5);
