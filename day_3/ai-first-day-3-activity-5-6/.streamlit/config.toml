@@ -1,18 +1,3 @@
 [theme]
-# Primary accent color for interactive elements
-primaryColor = "#FF69B4"  # Pastel pink, reminiscent of vinyl records
-
-# Background color for the main content area
-backgroundColor = "#121212"  # Deep charcoal grey, evoking a dark concert venue
-
-# Background color for sidebar and most interactive widgets
-secondaryBackgroundColor = "#333333"  # Dark grey, suggesting soundproofing material
-
-# Color used for almost all text
-textColor = "#FFFFFF"  # White, mimicking stage lights
-
-# Font family for all text in the app, except code blocks
-font = "sans-serif"
-
 # The preset Streamlit theme that your custom theme inherits from
 base = "dark"
