@@ -207,11 +207,30 @@ Your primary task is to analyze input lyrics from multiple songs and create a ne
             st.image('day_3/ai-first-day-3-activity-5-6/images/logo.jpg')
 
             # API key input
-            openai.api_key = st.text_input(
+            api_key_container = st.empty()
+            openai.api_key = api_key_container.text_input(
                 'Enter OpenAI API token:',
                 type='password',
                 placeholder='Your API token here'
             )
+
+            # API key validation
+            if not openai.api_key:
+                st.warning('Please enter your OpenAI API token!', icon='⚠️')
+            else:
+                try:
+                    openai.ChatCompletion.create(
+                        model="gpt-4o-mini",
+                        messages=[{"role": "user", "content": "test"}],
+                        max_tokens=5
+                    )
+                    st.success('Ready to mix some melodies!', icon='🎵')
+                except openai.error.AuthenticationError:
+                    st.error('Invalid API key. Please check your token and try again.', icon='🚫')
+                except openai.error.APIError as e:
+                    st.error(f'OpenAI API error: {str(e)}', icon='❌')
+                except Exception as e:
+                    st.error(f'An error occurred: {str(e)}', icon='⚠️')
 
             # Navigation menu
             options = option_menu(
