@@ -1,8 +1,8 @@
 import os
 import openai
 import streamlit as st
-from streamlit_option_menu import option_menu
 import base64
+from streamlit_option_menu import option_menu
 
 # Set up the page configuration
 st.set_page_config(
@@ -25,18 +25,31 @@ def set_background(image_path):
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
+        backdrop-filter: brightness(0.7) blur(5px);
+    }}
+    .stChatMessage {{
+        max-width: 80%;
+        margin: 0 auto;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        border-radius: 15px;
+    }}
+    .stChatMessage div[data-testid="stMarkdownContainer"] {{
+        color: #ffffff;
+    }}
+    .stChatMessage.user-message {{
+        background-color: rgba(30, 30, 40, 0.7) !important;
+    }}
+    .stChatMessage.assistant-message {{
+        background-color: rgba(50, 50, 70, 0.7) !important;
     }}
     </style>
     """
     st.markdown(background_style, unsafe_allow_html=True)
 
-# Apply the background image
-set_background("day_3/ai-first-day-3-activity-5-6/images/studio.jpg")
-
 # Custom CSS for enhanced styling
-custom_css = """
-<style>
-    /* Global Styles */
+def load_custom_css():
+    custom_css = """
+    <style>
     :root {
         --primary-color: #262730;
         --secondary-color: #03a9f4;
@@ -44,292 +57,219 @@ custom_css = """
         --text-color: #ffffff;
         --accent-color: #dec960;
     }
-
     body {
         font-family: 'Inter', sans-serif;
         color: var(--text-color);
     }
-
-    /* Sidebar Styles */
-    .streamlit-expanderHeader {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: var(--primary-color);
-    }
-
     .stSidebar {
-        background-color: var(--background-color);
+        background-color: rgba(27, 27, 27, 0.8);
+        backdrop-filter: blur(10px);
     }
-
-    .stSidebar .sidebar-content {
-        padding: 1rem;
-    }
-
-    /* Menu Styles */
-    .nav-link-selected {
-        color: var(--background-color);
-    }
-
-    /* Button Styles */
-    .stButton {
-        background-color: var(--primary-color);
-        color: var(--background-color);
+    .stButton>button {
+        background-color: var(--accent-color);
+        color: var(--primary-color);
         border: none;
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: all 0.3s ease;
     }
-
-    .stButton:hover {
+    .stButton>button:hover {
         background-color: var(--secondary-color);
+        transform: scale(1.05);
     }
+    </style>
+    """
+    st.markdown(custom_css, unsafe_allow_html=True)
 
-    /* Input Styles */
-    .stTextInput > div > div > input {
-        padding: 0.5rem;
-        font-size: 1rem;
-        border-radius: 0.25rem;
-        border: 1px solid var(--accent-color);
-    }
+# Main application class
+class VerseForgeApp:
+    def __init__(self):
+        # Initialize session state variables
+        if 'chat_history' not in st.session_state:
+            st.session_state.chat_history = []
+        if 'song_lyrics' not in st.session_state:
+            st.session_state.song_lyrics = []
+        if 'current_stage' not in st.session_state:
+            st.session_state.current_stage = 'start'
+        if 'total_songs' not in st.session_state:
+            st.session_state.total_songs = 0
 
-    /* Text Area Styles */
-    .stTextArea > div > div > textarea {
-        padding: 0.5rem;
-        font-size: 1rem;
-        border-radius: 0.25rem;
-        border: 1px solid var(--accent-color);
-    }
+    def system_prompt(self):
+        return """
+You are Melodia, an AI music mixer specializing in combining multiple song lyrics into cohesive and meaningful mixed songs.
 
-    /* Download Button Styles */
-    .stDownloadButton > button {
-        color: var(--accent-color);
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-        border: none;
-        border-radius: 0.25rem;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
+Your task is to guide the user through the lyric mixing process:
+1. Ask how many songs they want to mix
+2. Help them input lyrics for each song
+3. Ask if they want to add any specific creative direction
+4. Generate a mixed song that combines their inputs creatively
 
-    .stDownloadButton > button:hover {
-        background-color: var(--primary-color);
-    }
-</style>
+Be conversational, encouraging, and help users explore their musical creativity!
 """
-st.markdown(custom_css, unsafe_allow_html=True)
 
-# Sidebar configuration
-with st.sidebar:
-    st.image('day_3/ai-first-day-3-activity-5-6/images/logo.jpg')
+    def chat_message(self, content, role='assistant'):
+        # Add message to chat history
+        st.session_state.chat_history.append({
+            'role': role,
+            'content': content
+        })
 
-    # API key input
-    api_key_container = st.empty()
-    openai.api_key = api_key_container.text_input(
-        'Enter OpenAI API token:',
-        type='password',
-        placeholder='Your API token here'
-    )
+        # Display message
+        with st.chat_message(role):
+            st.markdown(content)
 
-    # API key validation
-    if not openai.api_key:
-        st.warning('Please enter your OpenAI API token!', icon='⚠️')
-    else:
-        try:
-            openai.ChatCompletion.create(
-                model="gpt-4o-mini",
-                messages=[{"role": "user", "content": "test"}],
-                max_tokens=5
-            )
-            st.success('Ready to mix some melodies!', icon='🎵')
-        except openai.error.AuthenticationError:
-            st.error('Invalid API key. Please check your token and try again.', icon='🚫')
-        except openai.error.APIError as e:
-            st.error(f'OpenAI API error: {str(e)}', icon='❌')
-        except Exception as e:
-            st.error(f'An error occurred: {str(e)}', icon='⚠️')
-
-# Menu configuration
-options = option_menu(
-    "Dashboard",
-    ["Home", "About Us", "Mix Songs"],
-    icons = ['house', 'info-circle', 'music'],
-    menu_icon = "list",
-    default_index = 0,
-    styles = {
-        "icon": {"color": "#dec960", "font-size": "20px"},
-        "nav-link": {"font-size": "17px", "text-align": "left", "margin": "5px", "--hover-color": "#262730"},
-        "nav-link-selected": {"background-color": "#262730"}
-    })
-
-if options == "Home":
-    # Home content
-    st.markdown("<h1 style='background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>VerseForge - AI Music Mixer</h1>", unsafe_allow_html=True)
-
-    st.markdown("""
-        <div style='background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>
-            <h3>Harmonize Multiple Songs into One</h3>
-            <p>VerseForge combines AI technology with musical creativity to blend lyrics from various songs into a cohesive masterpiece.</p>
-        </div>
-    """, unsafe_allow_html=True)
-
-elif options == "About Us":
-    # About Us content
-    st.markdown("<h1 style='background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>About Us</h1><br>", unsafe_allow_html=True)
-
-    st.markdown("""
-        <div style='background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>
-            <p>VerseForge is an AI-powered music mixing application created by Alpha Romer Coma.</p>
-            <p>This project aims to push the boundaries of what's possible in music creation using artificial intelligence.</p>
-        </div>
-    """, unsafe_allow_html=True)
-
-elif options == "Mix Songs":
-    # Mix Songs content
-    st.markdown("<h1 style='background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>Create Your Mixed Masterpiece</h1>", unsafe_allow_html=True)
-
-    # Input fields for multiple song lyrics
-    num_songs = st.number_input(
-        "Number of songs to mix:",
-        min_value=2,
-        max_value=5,
-        value=2,
-        label_visibility="visible"
-    )
-
-    lyrics_inputs = []
-    for i in range(num_songs):
-        lyrics_input = st.text_area(
-            f"Lyrics for Song {i+1}:",
-            height=150,
-            label_visibility="visible"
-        )
-        lyrics_inputs.append(lyrics_input)
-
-    # System prompt for AI model
-    system_prompt = """
+    def get_ai_response(self, user_input):
+        # System prompt for lyric generation
+        system_prompt = """
 <MusicMixerPrompt>
 <Role>
 You are Melodia, an AI music mixer specializing in combining multiple song lyrics into cohesive and meaningful mixed songs.
 </Role>
 
 <Instructions>
-Your primary task is to analyze input lyrics from multiple songs and create a new set of lyrics that combines elements from all input songs while maintaining coherence and flow. Follow these steps:
+Your primary task is to analyze input lyrics from multiple songs and create a new set of lyrics that combines elements from all input songs while maintaining coherence and flow:
 
-1. Analyze the input lyrics from multiple songs.
-2. Identify common themes, emotions, and styles across the songs.
-3. Create a new set of lyrics that combines elements from all input songs.
-4. Ensure the resulting lyrics have a clear structure (verse-chorus-verse-chorus-bridge-chorus).
-5. Use language that is poetic and engaging, suitable for a popular song.
-6. Avoid repetition and maintain variety throughout the mixed lyrics.
-7. If possible, incorporate elements that tie all songs together (e.g., similar imagery or metaphors).
-8. Keep the mixed lyrics concise, aiming for a total of about 200-250 words.
-
-Present your response in the format of a complete song with verses and choruses clearly marked.
+1. Analyze the input lyrics from multiple songs
+2. Identify common themes, emotions, and styles
+3. Create a new set of lyrics combining elements from all input songs
+4. Ensure a clear verse-chorus-verse-chorus-bridge-chorus structure
+5. Use poetic and engaging language
+6. Avoid repetition and maintain variety
+7. Incorporate elements that tie all songs together
+8. Keep mixed lyrics concise (200-250 words)
 </Instructions>
-
-<Context>
-As an AI music mixer, you operate in a creative environment where artistic expression meets technical skill. Your mixed lyrics will be used by musicians, producers, and music enthusiasts seeking innovative ways to combine different musical styles and themes. The goal is to create something unique yet familiar, blending the essence of multiple songs into a single, coherent piece.
-</Context>
-
-<Constraints>
-1. Maintain a balance between creativity and coherence in the mixed lyrics.
-2. Ensure all elements of the mixed lyrics align with the identified common themes and styles.
-3. Avoid copyright infringement by transforming original lyrics sufficiently.
-4. Keep the mixed lyrics suitable for a general audience, avoiding explicit content.
-5. Maintain consistency in tone and style throughout the mixed song.
-6. Do not introduce completely new themes or ideas not present in the original songs.
-7. Ensure the mixed lyrics flow naturally and maintain musicality.
-</Constraints>
-
-<Examples>
-<!-- Example 1 -->
-<Example>
-    <InputLyrics>
-        Song 1: "Yesterday" by The Beatles
-        Song 2: "Stairway to Heaven" by Led Zeppelin
-    </InputLyrics>
-    <ExpectedOutput>
-        Song Title: "Whispers of Yesterday"
-
-
-        Verse 1:
-        In yesterday's misty mountains high
-        Where shadows play, I hear her sigh
-        The wind whispers secrets, echoes of the past
-        A melancholy tune that forever lasts
-
-        Chorus:
-        Oh, my love, she's gone away
-        Left me standing here to face the day
-        With memories that never fade
-        And a heart that's lost its way
-
-        Verse 2:
-        There's a lady who's sure all that glitters is gold
-        And she's buying a stairway to heaven
-        When she gets there she knows, if the stores are all closed
-        With a word she can get what she came for
-
-        Chorus:
-        Oh, my love, she's gone away
-        Left me standing here to face the day
-        With memories that never fade
-        And a heart that's lost its way
-
-        Bridge:
-        Yes, there are two paths you can go by
-        But in the long run, there's still time to change the road you're on
-        Your head is humming, and your feet are cold
-        You've been a long time on the road
-
-        Chorus:
-        Oh, my love, she's gone away
-        Left me standing here to face the day
-        With memories that never fade
-        And a heart that's lost its way
-    </ExpectedOutput>
-</Example>
-</Examples>
 </MusicMixerPrompt>
-    """
+        """
 
-    # Mix Songs button
-    mix_button = st.button("Mix Songs")
-
-    if mix_button:
-        # Combine input lyrics
-        combined_lyrics = "\n\n".join(lyrics_inputs)
-
-        # Generate mixed song using AI model
+        # Generate mixed song
         response = openai.ChatCompletion.create(
             model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": f"Combine these lyrics into a cohesive mixed song:\n\n{combined_lyrics}"}
+                {"role": "user", "content": user_input}
             ]
         )
 
-        # Display the mixed song
-        st.success("Your mixed masterpiece is ready!")
-        # parse in a div with styles
-        st.markdown(f"""
-        <div style='background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>
-            <pre>{response.choices[0].message.content}</pre>
-        </div>
-        """, unsafe_allow_html=True)
+        return response.choices[0].message.content
 
-        # Add download button for the mixed song
-        st.download_button(
-            label="Download Your Mixed Song",
-            data=response.choices[0].message.content,
-            file_name="mixed_song.txt",
-            mime="text/plain"
-        )
+    def run(self):
+        # Sidebar for API key and navigation
+        with st.sidebar:
+            st.image('day_3/ai-first-day-3-activity-5-6/images/logo.jpg')
 
-# Footer
-st.markdown("""
-<div style='background-color: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px; position: fixed; bottom: 0; left: 0; right: 0; text-align: center;'>
-    <p>&copy; 2024 Alpha Romer Coma. All rights reserved.</p>
-</div>
-""", unsafe_allow_html=True)
+            # API key input
+            openai.api_key = st.text_input(
+                'Enter OpenAI API token:',
+                type='password',
+                placeholder='Your API token here'
+            )
+
+            # Navigation menu
+            options = option_menu(
+                "VerseForge",
+                ["Home", "Mix Songs", "About"],
+                icons=['house', 'music-note', 'info-circle'],
+                menu_icon="list",
+                default_index=0,
+                styles={
+                    "icon": {"color": "#dec960"},
+                    "nav-link-selected": {"background-color": "#262730"}
+                }
+            )
+
+        # Main content area
+        st.markdown("<h1 style='text-align:center; color:#dec960;'>VerseForge - AI Music Mixer</h1>", unsafe_allow_html=True)
+
+        if options == "Home":
+            st.markdown("""
+            <div style='text-align:center; background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>
+                <h3>Harmonize Multiple Songs into One</h3>
+                <p>VerseForge combines AI technology with musical creativity to blend lyrics from various songs into a cohesive masterpiece.</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+        elif options == "About":
+            st.markdown("""
+            <div style='text-align:center; background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>
+                <p>VerseForge is an AI-powered music mixing application created by Alpha Romer Coma.</p>
+                <p>This project aims to push the boundaries of what's possible in music creation using artificial intelligence.</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+        elif options == "Mix Songs":
+            # Chat-based interaction for song mixing
+            chat_container = st.container()
+
+            with chat_container:
+                # Display chat history
+                for message in st.session_state.chat_history:
+                    with st.chat_message(message['role']):
+                        st.markdown(message['content'])
+
+            # User input
+            user_input = st.chat_input("Let's mix some music!")
+
+            if user_input:
+                # User message
+                self.chat_message(user_input, role='user')
+
+                # AI conversation flow
+                if st.session_state.current_stage == 'start':
+                    self.chat_message("Hi there! I'm Melodia, your AI music mixer. How many songs would you like to mix today?")
+                    st.session_state.current_stage = 'song_count'
+
+                elif st.session_state.current_stage == 'song_count':
+                    try:
+                        total_songs = int(user_input)
+                        if 2 <= total_songs <= 5:
+                            st.session_state.total_songs = total_songs
+                            st.session_state.song_lyrics = []
+                            self.chat_message(f"Great! We'll mix {total_songs} songs. Please provide the lyrics for Song 1.")
+                            st.session_state.current_stage = 'collecting_lyrics'
+                        else:
+                            self.chat_message("Please choose between 2 and 5 songs.")
+                    except ValueError:
+                        self.chat_message("Please enter a valid number between 2 and 5.")
+
+                elif st.session_state.current_stage == 'collecting_lyrics':
+                    st.session_state.song_lyrics.append(user_input)
+
+                    if len(st.session_state.song_lyrics) < st.session_state.total_songs:
+                        self.chat_message(f"Lyrics for Song {len(st.session_state.song_lyrics)} added. Please provide lyrics for Song {len(st.session_state.song_lyrics) + 1}.")
+                    else:
+                        self.chat_message("All song lyrics collected! Do you have any special creative direction or theme you'd like me to consider while mixing?")
+                        st.session_state.current_stage = 'creative_direction'
+
+                elif st.session_state.current_stage == 'creative_direction':
+                    # Combine lyrics with creative direction
+                    combined_input = "\n\n".join(st.session_state.song_lyrics) + f"\n\nCreative Direction: {user_input}"
+
+                    # Generate mixed song
+                    mixed_song = self.get_ai_response(combined_input)
+
+                    # Display mixed song
+                    self.chat_message("Here's your mixed song masterpiece!")
+                    self.chat_message(mixed_song)
+
+                    # Add download button
+                    st.download_button(
+                        label="Download Mixed Song",
+                        data=mixed_song,
+                        file_name="mixed_song.txt",
+                        mime="text/plain"
+                    )
+
+                    # Reset for next mixing session
+                    st.session_state.current_stage = 'start'
+                    st.session_state.song_lyrics = []
+
+# Main app execution
+def main():
+    # Set background and load custom CSS
+    set_background("day_3/ai-first-day-3-activity-5-6/images/studio.jpg")
+    load_custom_css()
+
+    # Initialize and run the app
+    app = VerseForgeApp()
+    app.run()
+
+if __name__ == "__main__":
+    main()
