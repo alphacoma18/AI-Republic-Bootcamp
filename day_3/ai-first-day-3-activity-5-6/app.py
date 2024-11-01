@@ -7,7 +7,7 @@ import base64
 # Set up the page configuration
 st.set_page_config(
     page_title="VerseForge - AI Lyrics Mixer",
-    page_icon='images/logo.jpg',
+    page_icon='day_3/ai-first-day-3-activity-5-6/images/logo.jpg',
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -16,11 +16,11 @@ st.set_page_config(
 def set_background(image_path):
     with open(image_path, "rb") as image_file:
         image_data = base64.b64encode(image_file.read()).decode("utf-8")
-    
+
     background_style = f"""
     <style>
     .stApp {{
-        background-image: url("data:image/png;base64,{image_data}");
+        background-image: url("data:image/jpg;base64,{image_data}");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -31,7 +31,7 @@ def set_background(image_path):
     st.markdown(background_style, unsafe_allow_html=True)
 
 # Apply the background image
-set_background("images/studio.jpg")
+set_background("day_3/ai-first-day-3-activity-5-6/images/studio.jpg")
 
 # Custom CSS for enhanced styling
 custom_css = """
@@ -123,8 +123,8 @@ st.markdown(custom_css, unsafe_allow_html=True)
 
 # Sidebar configuration
 with st.sidebar:
-    st.image('images/logo.jpg')
-    
+    st.image('day_3/ai-first-day-3-activity-5-6/images/logo.jpg')
+
     # API key input
     api_key_container = st.empty()
     openai.api_key = api_key_container.text_input(
@@ -132,7 +132,7 @@ with st.sidebar:
         type='password',
         placeholder='Your API token here'
     )
-    
+
     # API key validation
     if not openai.api_key:
         st.warning('Please enter your OpenAI API token!', icon='⚠️')
@@ -153,21 +153,21 @@ with st.sidebar:
 
 # Menu configuration
 options = option_menu(
-    "Dashboard", 
+    "Dashboard",
     ["Home", "About Us", "Mix Songs"],
     icons = ['house', 'info-circle', 'music'],
-    menu_icon = "list", 
+    menu_icon = "list",
     default_index = 0,
     styles = {
         "icon": {"color": "#dec960", "font-size": "20px"},
         "nav-link": {"font-size": "17px", "text-align": "left", "margin": "5px", "--hover-color": "#262730"},
-        "nav-link-selected": {"background-color": "#262730"}          
+        "nav-link-selected": {"background-color": "#262730"}
     })
 
 if options == "Home":
     # Home content
     st.markdown("<h1 style='background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>VerseForge - AI Music Mixer</h1>", unsafe_allow_html=True)
-    
+
     st.markdown("""
         <div style='background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>
             <h3>Harmonize Multiple Songs into One</h3>
@@ -178,7 +178,7 @@ if options == "Home":
 elif options == "About Us":
     # About Us content
     st.markdown("<h1 style='background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>About Us</h1><br>", unsafe_allow_html=True)
-    
+
     st.markdown("""
         <div style='background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>
             <p>VerseForge is an AI-powered music mixing application created by Alpha Romer Coma.</p>
@@ -189,7 +189,7 @@ elif options == "About Us":
 elif options == "Mix Songs":
     # Mix Songs content
     st.markdown("<h1 style='background-color: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px;'>Create Your Mixed Masterpiece</h1>", unsafe_allow_html=True)
-    
+
     # Input fields for multiple song lyrics
     num_songs = st.number_input(
         "Number of songs to mix:",
@@ -198,7 +198,7 @@ elif options == "Mix Songs":
         value=2,
         label_visibility="visible"
     )
-    
+
     lyrics_inputs = []
     for i in range(num_songs):
         lyrics_input = st.text_area(
@@ -295,11 +295,11 @@ As an AI music mixer, you operate in a creative environment where artistic expre
 
     # Mix Songs button
     mix_button = st.button("Mix Songs")
-    
+
     if mix_button:
         # Combine input lyrics
         combined_lyrics = "\n\n".join(lyrics_inputs)
-        
+
         # Generate mixed song using AI model
         response = openai.ChatCompletion.create(
             model="gpt-4-mini",
@@ -308,7 +308,7 @@ As an AI music mixer, you operate in a creative environment where artistic expre
                 {"role": "user", "content": f"Combine these lyrics into a cohesive mixed song:\n\n{combined_lyrics}"}
             ]
         )
-        
+
         # Display the mixed song
         st.success("Your mixed masterpiece is ready!")
         st.markdown(response.choices[0].message.content)
