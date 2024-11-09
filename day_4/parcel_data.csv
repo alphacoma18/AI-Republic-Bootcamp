@@ -1,0 +1,21 @@
+ParcelID,SenderName,SenderAddress,SenderCity,SenderCountry,ReceiverName,ReceiverAddress,ReceiverCity,ReceiverCountry,ParcelWeight,ParcelDimensions,ShipmentDate,EstimatedDeliveryDate,CurrentStatus,DeliveryService,TrackingURL
+PCL1000,John Doe,123 Maple St,New York,USA,Mia Lopez,234 Maple St,Miami,USA,24.27,12x97x48,2024-02-25,2024-12-07,Processing,UPS,https://tracking.example.com/1000
+PCL1001,Jane Smith,456 Oak Ave,Los Angeles,USA,Noah Carter,567 Oak Ave,Orlando,USA,22.71,57x57x35,2024-09-21,2024-11-14,Delivered,UPS,https://tracking.example.com/1001
+PCL1002,Alice Johnson,789 Pine Rd,Chicago,USA,Olivia King,890 Pine Rd,Atlanta,USA,20.99,21x25x45,2024-10-17,2024-11-19,Processing,FedEx,https://tracking.example.com/1002
+PCL1003,Bob Lee,101 Cedar Ln,Houston,USA,Liam Brown,102 Cedar Ln,Boston,USA,24.07,89x36x71,2024-03-06,2024-12-09,In Transit,FedEx,https://tracking.example.com/1003
+PCL1004,Chris King,202 Birch Blvd,Phoenix,USA,Sophia White,203 Birch Blvd,Nashville,USA,8.11,14x55x56,2024-07-06,2024-11-08,Delivered,DHL,https://tracking.example.com/1004
+PCL1005,Emma Brown,303 Elm Ct,Philadelphia,USA,Mason Walker,304 Elm Ct,Las Vegas,USA,18.93,94x25x62,2024-10-19,2024-11-18,Out for Delivery,UPS,https://tracking.example.com/1005
+PCL1006,Frank White,404 Walnut Dr,San Antonio,USA,Amelia Johnson,405 Walnut Dr,Memphis,USA,3.29,81x93x60,2024-10-18,2024-12-21,Out for Delivery,DHL,https://tracking.example.com/1006
+PCL1007,Grace Young,505 Willow Way,San Diego,USA,Logan Wilson,506 Willow Way,Baltimore,USA,9.32,28x30x32,2024-03-14,2024-12-23,Out for Delivery,FedEx,https://tracking.example.com/1007
+PCL1008,Henry Hall,606 Ash Pkwy,Dallas,USA,Ava Moore,607 Ash Pkwy,Milwaukee,USA,18.18,12x83x93,2024-05-07,2024-12-04,Processing,USPS,https://tracking.example.com/1008
+PCL1009,Isabel Clark,707 Cherry Pl,San Jose,USA,Ethan Thomas,708 Cherry Pl,Albuquerque,USA,12.1,77x21x13,2024-06-02,2024-12-28,Processing,FedEx,https://tracking.example.com/1009
+PCL1010,Jack Turner,808 Fir Rd,Austin,USA,Ella Robinson,809 Fir Rd,Tucson,USA,13.58,19x23x79,2024-10-15,2024-11-25,Delivered,DHL,https://tracking.example.com/1010
+PCL1011,Karen Hill,909 Spruce St,Jacksonville,USA,James Martinez,910 Spruce St,Fresno,USA,14.13,76x97x84,2024-04-17,2024-12-19,Out for Delivery,UPS,https://tracking.example.com/1011
+PCL1012,Larry Scott,111 Poplar Ln,Fort Worth,USA,Charlotte Harris,121 Poplar Ln,Sacramento,USA,22.9,72x81x85,2024-01-11,2024-12-17,Processing,FedEx,https://tracking.example.com/1012
+PCL1013,Monica Davis,222 Sycamore Dr,Columbus,USA,Lucas Adams,242 Sycamore Dr,Kansas City,USA,1.06,25x27x80,2024-03-24,2024-11-03,Delivered,UPS,https://tracking.example.com/1013
+PCL1014,Nancy Wright,333 Redwood Ct,San Francisco,USA,Isabella Wright,353 Redwood Ct,Mesa,USA,16.28,42x51x13,2024-07-14,2024-12-28,Delivered,DHL,https://tracking.example.com/1014
+PCL1015,Oliver Green,444 Magnolia Blvd,Charlotte,USA,Michael Lewis,464 Magnolia Blvd,Virginia Beach,USA,23.52,36x39x78,2024-04-11,2024-12-19,Out for Delivery,UPS,https://tracking.example.com/1015
+PCL1016,Paul Martin,555 Dogwood Dr,Indianapolis,USA,Harper Walker,575 Dogwood Dr,Colorado Springs,USA,9.91,81x26x58,2024-03-28,2024-12-31,Delivered,DHL,https://tracking.example.com/1016
+PCL1017,Rachel Lewis,666 Hickory St,Seattle,USA,Benjamin Hall,686 Hickory St,Raleigh,USA,17.7,20x93x49,2024-09-15,2024-11-28,In Transit,USPS,https://tracking.example.com/1017
+PCL1018,Steve Harris,777 Juniper Ln,Denver,USA,Zoe Evans,797 Juniper Ln,Omaha,USA,5.58,83x91x45,2024-01-13,2024-11-17,Delivered,DHL,https://tracking.example.com/1018
+PCL1019,Tina Adams,888 Alder Way,Washington,USA,Alexander Allen,808 Alder Way,Long Beach,USA,10.25,99x31x77,2024-03-29,2024-12-21,Out for Delivery,DHL,https://tracking.example.com/1019
