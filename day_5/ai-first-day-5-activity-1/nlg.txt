@@ -1,0 +1,40 @@
+"Parcel PCL1000, sent by John Doe from 123 Maple St, New York, USA, is currently Processing. It is addressed to Mia Lopez at 234 Maple St, Miami, USA. The parcel weighs 24.27 kg and has dimensions of 12x97x48. It was shipped on 2024-02-25 and is estimated to be delivered by 2024-12-07 via UPS. You can track it using the following link: https://tracking.example.com/1000."
+
+"Parcel PCL1001, sent by Jane Smith from 456 Oak Ave, Los Angeles, USA, is currently Delivered. It is addressed to Noah Carter at 567 Oak Ave, Orlando, USA. The parcel weighs 22.71 kg and has dimensions of 57x57x35. It was shipped on 2024-09-21 and is estimated to be delivered by 2024-11-14 via UPS. You can track it using the following link: https://tracking.example.com/1001."
+
+"Parcel PCL1002, sent by Alice Johnson from 789 Pine Rd, Chicago, USA, is currently Processing. It is addressed to Olivia King at 890 Pine Rd, Atlanta, USA. The parcel weighs 20.99 kg and has dimensions of 21x25x45. It was shipped on 2024-10-17 and is estimated to be delivered by 2024-11-19 via FedEx. You can track it using the following link: https://tracking.example.com/1002."
+
+"Parcel PCL1003, sent by Bob Lee from 101 Cedar Ln, Houston, USA, is currently In Transit. It is addressed to Liam Brown at 102 Cedar Ln, Boston, USA. The parcel weighs 24.07 kg and has dimensions of 89x36x71. It was shipped on 2024-03-06 and is estimated to be delivered by 2024-12-09 via FedEx. You can track it using the following link: https://tracking.example.com/1003."
+
+"Parcel PCL1004, sent by Chris King from 202 Birch Blvd, Phoenix, USA, is currently Delivered. It is addressed to Sophia White at 203 Birch Blvd, Nashville, USA. The parcel weighs 8.11 kg and has dimensions of 14x55x56. It was shipped on 2024-07-06 and is estimated to be delivered by 2024-11-08 via DHL. You can track it using the following link: https://tracking.example.com/1004."
+
+"Parcel PCL1005, sent by Emma Brown from 303 Elm Ct, Philadelphia, USA, is currently Out for Delivery. It is addressed to Mason Walker at 304 Elm Ct, Las Vegas, USA. The parcel weighs 18.93 kg and has dimensions of 94x25x62. It was shipped on 2024-10-19 and is estimated to be delivered by 2024-11-18 via UPS. You can track it using the following link: https://tracking.example.com/1005."
+
+"Parcel PCL1006, sent by Frank White from 404 Walnut Dr, San Antonio, USA, is currently Out for Delivery. It is addressed to Amelia Johnson at 405 Walnut Dr, Memphis, USA. The parcel weighs 3.29 kg and has dimensions of 81x93x60. It was shipped on 2024-10-18 and is estimated to be delivered by 2024-12-21 via DHL. You can track it using the following link: https://tracking.example.com/1006."
+
+"Parcel PCL1007, sent by Grace Young from 505 Willow Way, San Diego, USA, is currently Out for Delivery. It is addressed to Logan Wilson at 506 Willow Way, Baltimore, USA. The parcel weighs 9.32 kg and has dimensions of 28x30x32. It was shipped on 2024-03-14 and is estimated to be delivered by 2024-12-23 via FedEx. You can track it using the following link: https://tracking.example.com/1007."
+
+"Parcel PCL1008, sent by Henry Hall from 606 Ash Pkwy, Dallas, USA, is currently Processing. It is addressed to Ava Moore at 607 Ash Pkwy, Milwaukee, USA. The parcel weighs 18.18 kg and has dimensions of 12x83x93. It was shipped on 2024-05-07 and is estimated to be delivered by 2024-12-04 via USPS. You can track it using the following link: https://tracking.example.com/1008."
+
+"Parcel PCL1009, sent by Isabel Clark from 707 Cherry Pl, San Jose, USA, is currently Processing. It is addressed to Ethan Thomas at 708 Cherry Pl, Albuquerque, USA. The parcel weighs 12.1 kg and has dimensions of 77x21x13. It was shipped on 2024-06-02 and is estimated to be delivered by 2024-12-28 via FedEx. You can track it using the following link: https://tracking.example.com/1009."
+
+"Parcel PCL1010, sent by Jack Turner from 808 Fir Rd, Austin, USA, is currently Delivered. It is addressed to Ella Robinson at 809 Fir Rd, Tucson, USA. The parcel weighs 13.58 kg and has dimensions of 19x23x79. It was shipped on 2024-10-15 and is estimated to be delivered by 2024-11-25 via DHL. You can track it using the following link: https://tracking.example.com/1010."
+
+"Parcel PCL1011, sent by Karen Hill from 909 Spruce St, Jacksonville, USA, is currently Out for Delivery. It is addressed to James Martinez at 910 Spruce St, Fresno, USA. The parcel weighs 14.13 kg and has dimensions of 76x97x84. It was shipped on 2024-04-17 and is estimated to be delivered by 2024-12-19 via UPS. You can track it using the following link: https://tracking.example.com/1011."
+
+"Parcel PCL1012, sent by Larry Scott from 111 Poplar Ln, Fort Worth, USA, is currently Processing. It is addressed to Charlotte Harris at 121 Poplar Ln, Sacramento, USA. The parcel weighs 22.9 kg and has dimensions of 72x81x85. It was shipped on 2024-01-11 and is estimated to be delivered by 2024-12-17 via FedEx. You can track it using the following link: https://tracking.example.com/1012."
+
+"Parcel PCL1013, sent by Monica Davis from 222 Sycamore Dr, Columbus, USA, is currently Delivered. It is addressed to Lucas Adams at 242 Sycamore Dr, Kansas City, USA. The parcel weighs 1.06 kg and has dimensions of 25x27x80. It was shipped on 2024-03-24 and is estimated to be delivered by 2024-11-03 via UPS. You can track it using the following link: https://tracking.example.com/1013."
+
+"Parcel PCL1014, sent by Nancy Wright from 333 Redwood Ct, San Francisco, USA, is currently Delivered. It is addressed to Isabella Wright at 353 Redwood Ct, Mesa, USA. The parcel weighs 16.28 kg and has dimensions of 42x51x13. It was shipped on 2024-07-14 and is estimated to be delivered by 2024-12-28 via DHL. You can track it using the following link: https://tracking.example.com/1014."
+
+"Parcel PCL1015, sent by Oliver Green from 444 Magnolia Blvd, Charlotte, USA, is currently Out for Delivery. It is addressed to Michael Lewis at 464 Magnolia Blvd, Virginia Beach, USA. The parcel weighs 23.52 kg and has dimensions of 36x39x78. It was shipped on 2024-04-11 and is estimated to be delivered by 2024-12-19 via UPS. You can track it using the following link: https://tracking.example.com/1015."
+
+"Parcel PCL1016, sent by Paul Martin from 555 Dogwood Dr, Indianapolis, USA, is currently Delivered. It is addressed to Harper Walker at 575 Dogwood Dr, Colorado Springs, USA. The parcel weighs 9.91 kg and has dimensions of 81x26x58. It was shipped on 2024-03-28 and is estimated to be delivered by 2024-12-31 via DHL. You can track it using the following link: https://tracking.example.com/1016."
+
+"Parcel PCL1017, sent by Rachel Lewis from 666 Hickory St, Seattle, USA, is currently In Transit. It is addressed to Benjamin Hall at 686 Hickory St, Raleigh, USA. The parcel weighs 17.7 kg and has dimensions of 20x93x49. It was shipped on 2024-09-15 and is estimated to be delivered by 2024-11-28 via USPS. You can track it using the following link: https://tracking.example.com/1017."
+
+"Parcel PCL1018, sent by Steve Harris from 777 Juniper Ln, Denver, USA, is currently Delivered. It is addressed to Zoe Evans at 797 Juniper Ln, Omaha, USA. The parcel weighs 5.58 kg and has dimensions of 83x91x45. It was shipped on 2024-01-13 and is estimated to be delivered by 2024-11-17 via DHL. You can track it using the following link: https://tracking.example.com/1018."
+
+"Parcel PCL1019, sent by Tina Adams from 888 Alder Way, Washington, USA, is currently Out for Delivery. It is addressed to Alexander Allen at 808 Alder Way, Long Beach, USA. The parcel weighs 10.25 kg and has dimensions of 99x31x77. It was shipped on 2024-03-29 and is estimated to be delivered by 2024-12-21 via DHL. You can track it using the following link: https://tracking.example.com/1019."
+
